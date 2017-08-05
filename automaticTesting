@@ -1,0 +1,57 @@
+package login;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+/**
+ * Created by XT on 8/5/17.
+ */
+public class LoginTest {
+
+    @Test
+    public void verifyValidUserLogintoSpree()
+    {
+
+        System.setProperty("webdriver.chrome.driver","/Users/XT/Desktop/Drivers/chromedriver");
+        WebDriver driver=new ChromeDriver();
+        driver.get("http://10.136.124.30:3000");
+
+        WebElement login_icon=driver.findElement(By.id("link-to-login"));
+        login_icon.click();
+
+        WebElement userName=driver.findElement(By.id("spree_user_email"));
+        userName.sendKeys("xt@xt.com");
+
+        WebElement password=driver.findElement(By.name("spree_user[password]"));
+        password.sendKeys("xtxtxt");
+
+        WebElement submitButton = driver.findElement(By.xpath("//*[@id=\"new_spree_user\"]/p[2]/input"));
+        submitButton.click();
+
+        WebElement myAccountLink = driver.findElement(By.linkText("MY ACCOUNT"));
+
+        String actual=myAccountLink.getText();
+        String expected="MY ACCOUNT";
+
+        Assert.assertEquals(expected,actual);
+
+
+
+    }
+    @Test
+    public void verifyInValidUserLogintoSpree()
+    {
+        System.out.print("invalid user");
+    }
+    @Test
+    public void verifyValidUserLoginEmptyUsername()
+    {
+            System.out.print("empty");
+    }
+
+
+}
